@@ -1,0 +1,49 @@
+version: '3'
+
+services: 
+  redis:
+    image: redis:5.0.5
+    ports:
+      - '6379:6379'
+
+  mongo:
+    restart: always
+    image: mongo:4.2.0
+    volumes:
+      - ./db/data:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_ADMIN_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_ADMIN_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+
+  express-container:
+    build: ./server
+    depends_on:
+      - "mongo"
+    command: ["./wait-for-it.sh", "mongo:27017", "--", "npm", "run", "dev"]
+    working_dir: /usr/src/app
+    volumes:
+      - ./server:/usr/src/app
+    ports:
+      - "443:443"
+    links:
+      - mongo
+      - redis
+    environment:
+      DB_URI: ${DB_URI}
+      JWT_SECRET: ${JWT_SECRET}
+      REDIS_URI: ${REDIS_URI}
+      SITE_EMAIL: ${SITE_EMAIL}
+      SITE_PWD: ${SITE_PWD}
+      
+  nextjs-container:
+    build: ./client
+    working_dir: /usr/src/app
+    volumes:
+      - ./client:/usr/src/app
+    ports:
+      - "3000:3000"
+    links:
+      - express-container

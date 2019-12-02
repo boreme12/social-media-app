@@ -1,0 +1,20 @@
+[
+  {
+    "name": "username",
+    "icon": "id badge",
+    "placeholder": "Username",
+    "type": "text"
+  },
+  {
+    "name": "email",
+    "icon": "lock",
+    "placeholder": "E-mail address",
+    "type": "text"
+  },
+  {
+    "name": "password",
+    "icon": "user",
+    "placeholder": "Password",
+    "type": "password"
+  }
+]

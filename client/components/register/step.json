@@ -1,0 +1,24 @@
+[
+  {
+    "key": "user",
+    "active": true,
+    "icon": "user circle",
+    "title": "User Details",
+    "completed": false
+  },
+  {
+    "key": "picture",
+    "active": false,
+    "disabled": true,
+    "icon": "picture",
+    "title": "Profile Picture",
+    "completed": false
+  },
+  { "key": "confirm", 
+    "active": false, 
+    "disabled": true, 
+    "icon": "file text", 
+    "title": "Bio Details", 
+    "completed": false
+  }
+]
