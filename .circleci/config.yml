@@ -4,7 +4,7 @@ jobs:
     docker:
       image: circleci/node:latest
     steps:
-      checkout:
+      - checkout:
         path: '~/server'
       - run: npm install
       - run: CI=true npm run build
