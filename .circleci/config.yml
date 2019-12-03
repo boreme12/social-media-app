@@ -5,7 +5,7 @@ jobs:
       image: circleci/node:latest
     steps:
       checkout:
-        path: ~/server
+        - path: ~/server
       - run: npm install
       - run: CI=true npm run build
   test:
