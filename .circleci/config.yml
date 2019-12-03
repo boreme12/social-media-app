@@ -1,19 +1,19 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/server
     docker:
       image: circleci/node:latest
     steps:
-      - checkout:
-        path: '~/server'
+      - checkout
       - run: npm install
       - run: CI=true npm run build
   test:
+    working_directory: ~/server
     docker:
       image: circleci/node:node:latest
     steps:
-      checkout:
-        path: '~/server'
+      - checkout
       - run: npm install
       - run: npm run test
 workflows:
