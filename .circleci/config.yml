@@ -6,16 +6,23 @@ jobs:
       image: circleci/node:latest
     steps:
       - checkout
-      - run: npm install
-      - run: CI=true npm run build
+      - run:
+        working_directory: ~/server 
+        command: npm install
+      - run:
+        working_directory: ~/server 
+        command: CI=true npm run build
   test:
-    working_directory: ~/server
     docker:
       image: circleci/node:node:latest
     steps:
       - checkout
-      - run: npm install
-      - run: npm run test
+      - run:
+        working_directory: ~/server 
+        command: npm install
+      - run:
+        working_directory: ~/server 
+        command: npm run test
 workflows:
   version: 2
   build-and-test:
