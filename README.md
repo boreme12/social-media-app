@@ -1,17 +1,34 @@
 # social-media-app
 
-To run create the project:
+A social media app created using: React, Express, JWT authentication, docker, CircleCI, Mongodb, Mongoose, Next.js (SSR), Redis, API,Semantic UI, Javascript, Jest.
 
-create .env file containing:
+## Getting Started
 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+Create a .env file in the root directory
+```
 DB_ADMIN_USERNAME=W12TF5Cu
 DB_ADMIN_PASSWORD=XhgKO97clx1Q
 DB_NAME=socialMediaApi
-//Fill in the variable value below with the associated values
+//Fill in the variable names below with the associated values
 DB_URI=mongodb://DB_ADMIN_USERNAME:DB_ADMIN_PASSWORD@mongo:27017/DB_NAME?authSource=admin
 REDIS_URI=redis
 JWT_SECRET=
 SITE_EMAIL=
 SITE_PWD=
+```
+### Installing
 
-To run project run: 'SUDO docker-compose up --build'
+Run the following command from the root directory
+```
+SUDO docker-compose up --build
+```
+### Running
+
+Run the following command from the root directory
+```
+SUDO docker-compose up
+```
