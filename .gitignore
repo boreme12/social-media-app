@@ -1,24 +1,6 @@
 
-# Created by https://www.gitignore.io/api/node,react,linux,dotenv
-# Edit at https://www.gitignore.io/?templates=node,react,linux,dotenv
-
-### dotenv ###
-.env
-
-### Linux ###
-*~
-
-# temporary files which can be created if a process still has a handle open of a deleted file
-.fuse_hidden*
-
-# KDE directory preferences
-.directory
-
-# Linux trash folder which might appear on any partition or disk
-.Trash-*
-
-# .nfs files are created when an open file is removed but is still being accessed
-.nfs*
+# Created by https://www.gitignore.io/api/node,react,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=node,react,visualstudiocode
 
 ### Node ###
 # Logs
@@ -61,7 +43,7 @@ bower_components
 build/Release
 
 # Dependency directories
-*/node_modules/
+node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -86,6 +68,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
+.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -126,8 +109,16 @@ psd
 thumb
 sketch
 
-# mongoDB data
-db/data
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-# vsCode
-.vscode
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+#  mongo data
+db/data/*

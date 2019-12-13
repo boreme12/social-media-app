@@ -2,20 +2,20 @@ const redis = require('redis')
 const redisClient = redis.createClient({host: process.env.REDIS_URI})
 require('dotenv').config()
 
-const setAuthToken = async (key, userToken) => {
+const set = async (key, userToken) => {
   const {id, avatar, username } = userToken
   const idString = id.toString()
 
   await new Promise((resolve, reject) => {
     return redisClient.hset(key, 'id', idString, 'avatar', avatar, 'username', username, (err, reply) => {
       (err || !reply) 
-        ? reject('error setting auth token')
+        ? (err && reject(err), !reply && reject('error setting auth token'))
         : resolve(reply)
     })
   })
 }
 
-const autheniticateToken = async (authorization) => {
+const autheniticate = async (authorization) => {
   return new Promise((resolve, reject) => {
     redisClient.exists(authorization, (err, reply) => {
       if(err || !reply) {
@@ -26,7 +26,7 @@ const autheniticateToken = async (authorization) => {
   })  
 }
 
-const getAuthTokenData = async (authorization) => {
+const get = async (authorization) => {
   return new Promise((resolve, reject) => {
     redisClient.hmget(authorization, ['id', 'avatar', 'username'], (err, reply) => {
       if(err || !reply) {
@@ -37,7 +37,7 @@ const getAuthTokenData = async (authorization) => {
   })  
 }
 
-const revokeToken = async (authorization) => {
+const revoke = async (authorization) => {
   return await new Promise((resolve, reject) => {
     redisClient.del(authorization, (err, reply) => {
       if(err || !reply) {
@@ -49,8 +49,8 @@ const revokeToken = async (authorization) => {
 }
 
 module.exports = {
-  getAuthTokenData: getAuthTokenData,
-  setAuthToken: setAuthToken,
-  revokeToken: revokeToken,
-  autheniticateToken, autheniticateToken
+  get: get,
+  set: set,
+  revoke: revoke,
+  autheniticate, autheniticate
 }

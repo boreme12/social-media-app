@@ -44,8 +44,17 @@ describe('Test All API routes', () => {
       .expect('Content-Type', /json/)
   })
 
-  it('should respond 201 for login', async() => {
+  it('should respond 202 and revoke token', async() => {
     await request(app)
+      .delete(`/auth/revoke`)
+      .set('Authorization', authToken)
+      .set('Accept', 'application/json')
+      .expect(202)
+      .expect('Content-Type', /json/)
+  })
+
+  it('should respond 201 for login', async() => {
+    const res = await request(app)
       .post('/login')
       .send({
         email: 'jest-tester@jest.com',
@@ -54,6 +63,8 @@ describe('Test All API routes', () => {
       .set('Accept', 'application/json')
       .expect(201)
       .expect('Content-Type', /json/)
+
+      authToken = res.body.data.token
   })
 
   it('should respond 202 for login with auth token', async() => {
@@ -76,7 +87,7 @@ describe('Test All API routes', () => {
       .expect('Content-Type', /json/)
 
     //assign post ID for future testing
-    postId = res.body.postId
+    postId = res.body.data.postId
   })
 
   it('should respond 201 for liking post', async() => {

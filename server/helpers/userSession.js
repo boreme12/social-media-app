@@ -14,20 +14,19 @@ const signToken = async (email) => {
   })
 }
 
-const createUserSession = async (res, next, userToken, handleResp = true) => {
+const create = async (userToken) => {
   const {email, id, avatar, username} = userToken
-  const token = await signToken(email).catch(err => next(err))
-  const redisResp = await handleRedis.setAuthToken(token, userToken).catch(err => {return next(err)})
+  const token = await signToken(email)
+  await handleRedis.set(token, userToken)
+  return { token, id, avatar, username }
+}
 
-  if(!handleResp){
-    return token
-  } else {
-    const session = { token, id, avatar, username }
-    handleSuccessResponse(res, 201, session)
-  }
+const remove = async (authToken) => {
+  return await handleRedis.revoke(authToken)
 }
 
 module.exports = {
-  createUserSession
+  create: create, 
+  remove: remove
 }
 

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expect to render Comment Component 1`] = `
+<Comment>
+  <CommentAvatar
+    src="http://localhost:443/images/avatars/undefined"
+  />
+  <CommentContent>
+    <CommentAuthor
+      as="a"
+    />
+    <CommentMetadata>
+      <div>
+        NaN days ago
+      </div>
+    </CommentMetadata>
+    <CommentText />
+    <CommentActions>
+      <CommentAction
+        as="a"
+      >
+        Reply
+      </CommentAction>
+    </CommentActions>
+  </CommentContent>
+</Comment>
+`;

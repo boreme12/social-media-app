@@ -1,15 +1,16 @@
 const { handleSuccessResponse } = require('../helpers/handleResponse')
-const handleRedis = require('../helpers/handleRedis')
+const userSession  = require('../helpers/userSession')
 
 const revoke = async (req, res, next) => {
   const { authorization } = req.headers
-  const isTokenRevoked = await handleRedis.revokeToken(authorization).catch(err => {next(err)})
-
-  console.log(isTokenRevoked)
-
-  isTokenRevoked === 1 
-    ? handleSuccessResponse(res, 201, null)
-    : next('cannot delete token')
+  try {
+    const isRevoked = await userSession.remove(authorization)
+    isRevoked
+      ? handleSuccessResponse(res, 202, null)
+      : next('Redis error on DELETE request')
+  } catch (err) {
+    next('Server error on DELETE request')
+  }
 }
 
 module.exports = {

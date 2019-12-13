@@ -37,23 +37,21 @@ class Login extends React.Component {
     }
 
     const fetchResponse = await fetch('http://localhost:443/login', settings)
-    const data = await fetchResponse.json()
-    if(data.status === 'fail'){
+    const jsonData = await fetchResponse.json()
+    if(jsonData.status === 'fail'){
       this.setState({
         error: true,
-        errorInfo: [data.message]
+        errorInfo: [jsonData.message]
       })
-    } else if(data.status === 'error') {
+    } else if(jsonData.status === 'error') {
       this.setState({
         error: true,
         errorInfo: ['Internal server error']
       })
-    } else if (fetchResponse.status === 201 && data.status === 'success' && data.token) {
-      this.saveAuthTokenInSession(data.token)
-      console.log('success created')
+    } else if (fetchResponse.status === 201 && jsonData.status === 'success' && jsonData.data.token) {
+      this.saveAuthTokenInSession(jsonData.data.token)
       Router.push('/index')
-    } else if (fetchResponse.status === 202){
-      console.log('success exists')
+    } else if (fetchResponse.status === 202 && jsonData.status === 'success'){
       Router.push('/index')
     }
   }

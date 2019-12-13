@@ -26,7 +26,6 @@ class Nav extends React.Component{
   }
 
   handleOnChange = (e, data) => {
-    console.log(data.value)
     data.value === 'account'
       ? this.toggleModal()
       : this.signOut()

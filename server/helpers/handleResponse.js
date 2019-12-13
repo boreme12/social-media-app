@@ -8,7 +8,9 @@ const handleErrorResponse = (res, msg, statusCode, status) => {
 const handleSuccessResponse = (res, statusCode, jsonObj) => {
   res.status(statusCode).json({
     status: 'success',
+    data: {
       ...jsonObj
+    }
   })
 };
 

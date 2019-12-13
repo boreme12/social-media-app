@@ -19,38 +19,42 @@ const create = async (req, res, next) => {
       likeCount: 0
     })
 
-    const postData = await newPost.save().catch(err => next(err))
+    return await newPost.save()
+  }
+
+  try {
+    const userData =  await getUserData().catch(err => next(err))
+    const postData = await createPost(userData).catch(err => next(err))
     handleSuccessResponse(res, 201, { postId: postData._id })
+    
+  } catch (err) {
+    next('server error on POST request: ', err)
   }
-
-  const userData =  await getUserData().catch(err => next(err))
-  createPost(userData).catch(err => next(err))
 }
 
-const get = (req, res, next) => {
+const get = async (req, res, next) => {
   const getPostData = async () => {
-    const posts = await Post.find({}).sort({ _id: -1 }).limit(10)
-    const postObj = {
-      data: [
-        ...posts
-      ]
-    }
-    handleSuccessResponse(res, 200, postObj)
+    return await Post.find({}).sort({ _id: -1 }).limit(10)
   }
-  getPostData().catch(err => next(err))
+  try {
+    const posts = await getPostData()
+    handleSuccessResponse(res, 200, posts)
+  } catch (err) {
+    next('server error on GET request: ', err)
+  }
 }
 
-const deletePost = async (req, res, next) => {
-  await Post.deleteOne({ _id: req.params.id })
-    .catch(err => {
-      return next('Server error on DELETE request')
-    })
-
-  handleSuccessResponse(res, 202, null)
+const remove = async (req, res, next) => {
+  try {
+    await Post.deleteOne({ _id: req.params.id })
+    handleSuccessResponse(res, 202, null)
+  } catch (err) {
+    next('Server error on DELETE request: ', err)
+  }
 }
 
 module.exports = {
   create: create, 
   get: get,
-  deletePost: deletePost
+  remove: remove
 }

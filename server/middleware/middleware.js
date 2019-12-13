@@ -1,5 +1,5 @@
 const handleRedis = require('../helpers/handleRedis')
-const { handleSuccessResponse, handleErrorResponse } = require('../helpers/handleResponse')
+const { handleErrorResponse } = require('../helpers/handleResponse')
 
 const requireAuth = async(req, res, next) => {
   const {authorization} = req.headers
@@ -7,13 +7,15 @@ const requireAuth = async(req, res, next) => {
   if(!authorization){
     return handleErrorResponse(res, 'unauthorized, no auth token', 401, 'fail')
   }
-
-  const isValid = await handleRedis.autheniticateToken(authorization)
-    .catch(err => { res.status(401).json(`unauthorized ${err}`)})
-  if(!isValid){
-    return res.status(401).json('unauthorized')
-  } 
-  next()
+  try {
+    const isValid = await handleRedis.autheniticate(authorization)
+    if(!isValid){
+      return res.status(401).json('unauthorized')
+    } 
+    next()
+  } catch (err) {
+    res.status(401).json(`unauthorized ${err}`)
+  }
 }
 
 const handleError = (err, req, res, next) => {

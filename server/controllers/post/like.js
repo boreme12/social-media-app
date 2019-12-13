@@ -1,20 +1,20 @@
 const Post = require('../../models/Post')
 const { handleSuccessResponse } = require('../../helpers/handleResponse')
 
-const add = (req, res, next) => {
-  addLike = async () => {
-    const { userId, username } = req.body
-    const { postid } = req.params
+const add = async (req, res, next) => {
+  const { userId, username } = req.body
+  const { postid } = req.params
 
-    const filter = {
-      _id: postid
-    }
+  const filter = {
+    _id: postid
+  }
 
-    const like = {
-      userId: userId,
-      username: username
-    }
+  const like = {
+    userId: userId,
+    username: username
+  }
 
+  try {
     await Post.findOneAndUpdate(
       filter, 
       { 
@@ -27,24 +27,22 @@ const add = (req, res, next) => {
         new : true
       }
     )
-
+  
     handleSuccessResponse(res, 201, null)
-  }
-
-  addLike().catch(err => {
+  } catch (err) {
     next(err)
-  })
+  }
 }
 
-const remove = (req, res, next) => {
-  removeLike = async () => {
-    const { userId } = req.body
-    const { postid } = req.params
+const remove = async (req, res, next) => {
+  const { userId } = req.body
+  const { postid } = req.params
 
-    const filter = {
-      _id: postid
-    }
-
+  const filter = {
+    _id: postid
+  }
+  
+  try {
     await Post.findOneAndUpdate(
       filter, 
       {
@@ -59,11 +57,9 @@ const remove = (req, res, next) => {
     )
 
     handleSuccessResponse(res, 201, null)
-  }
-
-  removeLike().catch(err =>
+  } catch (err) {
     next(err)
-  )
+  }
 }
 
 module.exports = {

@@ -132,9 +132,6 @@ class ProfilePicture extends Component {
           <Button onClick={() => this.onSubmit()} color='teal'  size='large'>
             Continue
           </Button>
-          <Button onClick={() => nextPage()} color='grey'  size='large'>
-            Skip
-          </Button>
         </Segment>
       </>
     )
