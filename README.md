@@ -10,9 +10,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 Create a .env file in the root directory
 ```
-DB_ADMIN_USERNAME=W12TF5Cu
-DB_ADMIN_PASSWORD=XhgKO97clx1Q
-DB_NAME=socialMediaApi
+DB_ADMIN_USERNAME=
+DB_ADMIN_PASSWORD=
+DB_NAME=
 //Fill in the variable names below with the associated values
 DB_URI=mongodb://DB_ADMIN_USERNAME:DB_ADMIN_PASSWORD@mongo:27017/DB_NAME?authSource=admin
 REDIS_URI=redis
