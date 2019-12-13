@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Create a .env file in the root directory
+Create a .env file in the root directory and add values to the variables
 ```
 DB_ADMIN_USERNAME=
 DB_ADMIN_PASSWORD=
